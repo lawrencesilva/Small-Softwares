@@ -1,3 +1,4 @@
+// Only works with .pnm images
 #include <iostream>
 #include <fstream>
 #include <locale.h>
@@ -20,13 +21,13 @@ using namespace std;
 
 
 int main(){
-	static unsigned char imagem_cinza[MAXALTURA][MAXLARGURA], imagem_colorida[MAXALTURA][MAXLARGURA][COR], auxiliar_cinza1[MAXALTURA][MAXLARGURA], auxiliar_cinza2[MAXALTURA][MAXLARGURA], auxiliar_cinza3[MAXALTURA][MAXLARGURA];//Vetores utilizados para fazer operações e filtros.
+	static unsigned char imagem_cinza[MAXALTURA][MAXLARGURA], imagem_colorida[MAXALTURA][MAXLARGURA][COR], auxiliar_cinza1[MAXALTURA][MAXLARGURA], auxiliar_cinza2[MAXALTURA][MAXLARGURA], auxiliar_cinza3[MAXALTURA][MAXLARGURA];//Vetores utilizados para fazer operaÃ§Ãµes e filtros.
 	static unsigned char auxiliar_colorida1[MAXALTURA][MAXLARGURA][MAXCOR], auxiliar_colorida2[MAXALTURA][MAXLARGURA][MAXCOR], auxiliar_colorida3[MAXALTURA][MAXLARGURA][MAXCOR];//Vetores para fazer filtros.
 	static char gy[MAXALTURA2][MAXLARGURA2] = {{1, 2, 1}, {0, 0, 0},{-1, -2, -1}}, gx[MAXALTURA2][MAXLARGURA2] = {{1, 0, -1},{2, 0, -2},{1, 0, -1}}, gr[MAXALTURA2][MAXLARGURA2] = {{0, -1, 0}, {-1, 5, -1},{0, -1, 0}};//Filtros.
 	static char glp[MAXALTURA2][MAXLARGURA2] = {{0, -1, 0}, {-1, 4, -1},{0, -1, 0}}, gdg[MAXALTURA2][MAXLARGURA2] = {{1, 2, 1}, {2, 4, 2},{1, 2, 1}};//Filtros.
-	static char comentario[200], c;//Comentário.
-	int largura, altura, n, z, guardar, cor = 3;//Dimensões do vetor..
-	static char nome_arquivo[50],arq_saida[50];//Nome do arquivo de entrada e saída.
+	static char comentario[200], c;//ComentÃ¡rio.
+	int largura, altura, n, z, guardar, cor = 3;//DimensÃµes do vetor..
+	static char nome_arquivo[50],arq_saida[50];//Nome do arquivo de entrada e saÃ­da.
 	static char tipoimg[50];//Tipo da imagem.
 	ifstream arquivoin;//Arquivo de entraa.
 	ofstream arquivoout;//Arquivo de saida.
@@ -49,7 +50,7 @@ int main(){
 	arquivoin >> tipoimg; //Recebe o tipo da imagem.
 	arquivoin.get();    
 
-   	if (strcmp(tipoimg,"P2")==0) {				//Lê o tipo da imagem.
+   	if (strcmp(tipoimg,"P2")==0) {				//LÃª o tipo da imagem.
       cout << "Imagem em tons de cinza\n";
     }
     
@@ -64,7 +65,7 @@ int main(){
       return 0;
     }
 
-    while((c = arquivoin.get()) == '#')   //Tira o comentário.
+    while((c = arquivoin.get()) == '#')   //Tira o comentÃ¡rio.
        arquivoin.getline(comentario,200); 
 
     arquivoin.putback(c);  
@@ -100,21 +101,21 @@ int main(){
 		arquivoin.close();
 }
    
-    if(strcmp(tipoimg,"P2")==0){    //INÍCIO DAS CINZAS (Explicações de como funcionam no Relatório)
-    	cout << "Gostaria de:   1.Operações   2.Filtros   (Digite apenas 1 ou 2)" << endl; //Escolhendo o que quer fazer.
+    if(strcmp(tipoimg,"P2")==0){    //INÃCIO DAS CINZAS (ExplicaÃ§Ãµes de como funcionam no RelatÃ³rio)
+    	cout << "Gostaria de:   1.OperaÃ§Ãµes   2.Filtros   (Digite apenas 1 ou 2)" << endl; //Escolhendo o que quer fazer.
     	cin >> gostaria1;
     	
     	z = largura - 1;
     	
-    	if(gostaria1 == 1){//Início das operações.
+    	if(gostaria1 == 1){//InÃ­cio das operaÃ§Ãµes.
     	cout << endl;
-    	cout << "Gostaria de: 1.Clareamento   2.Escurecimento   3.Negativo   4.Espelhar (Digite apenas 1, 2, 3 ou 4)" << endl;//Escolhendo a operação.
+    	cout << "Gostaria de: 1.Clareamento   2.Escurecimento   3.Negativo   4.Espelhar (Digite apenas 1, 2, 3 ou 4)" << endl;//Escolhendo a operaÃ§Ã£o.
     	cin >> gostaria2;
     	
     	if(gostaria2 == 1){//Clareamento .
-    		cout << "Você escolheu o clareamento." << endl;
+    		cout << "VocÃª escolheu o clareamento." << endl;
     		cout << endl;
-    		cout << "Qual o fator de clareamento? (Digite um número)" << endl;
+    		cout << "Qual o fator de clareamento? (Digite um nÃºmero)" << endl;
     		cin >> fatorclaro;
     		for(int i = 0; i < altura; i++){//Soma nos pixels.
     			for(int j = 0; j < largura; j++){
@@ -128,9 +129,9 @@ int main(){
 		}
     		
 		else if(gostaria2 == 2){//Escurecimento.
-			cout << "Você escolheu o escurecimento." << endl;
+			cout << "VocÃª escolheu o escurecimento." << endl;
 			cout << endl;
-			cout << "Qual o fator de escurecimento? (Digite um número)" << endl;
+			cout << "Qual o fator de escurecimento? (Digite um nÃºmero)" << endl;
 			cin >> fatorescuro;
     	for(int i = 0; i < altura; i++){//Subtrae nos pixels.
     		for(int j = 0; j < largura; j++){
@@ -144,9 +145,9 @@ int main(){
     }
     
     	else if(gostaria2 == 3){//Negativo.
-    		cout << "Você escolheu o negativo." << endl;
+    		cout << "VocÃª escolheu o negativo." << endl;
     		for(int i = 0; i < altura; i++){
-    			for(int j = 0; j < largura; j++){//Faz o módulo da subtração.
+    			for(int j = 0; j < largura; j++){//Faz o mÃ³dulo da subtraÃ§Ã£o.
     				valor = (int)imagem_cinza[i][j];
     				valor = abs(valor - 255);
     				imagem_cinza[i][j] = (unsigned char)valor;
@@ -155,7 +156,7 @@ int main(){
 		}
 		
 		else if(gostaria2 == 4){//Espelhar.
-    		cout << "Você escolheu espelhar." << endl;
+    		cout << "VocÃª escolheu espelhar." << endl;
     		for(int i = 0; i < largura; i++){
     			for(int j = 0; j < altura; j++){//Inverte as colunas.		
     				guardar = (int)imagem_cinza[j][i];
@@ -168,14 +169,14 @@ int main(){
 					break;
 			}
 		}		
-	}//Fim das operações.
+	}//Fim das operaÃ§Ãµes.
 		
-		else if(gostaria1 == 2){//Início dos Filtros (Explicações de como funcionam no Relatório)
-		cout << "Gostaria de: 1.Filtro de Sobel   2.Filtro de Realçar   3.Filtro de Laplace   4.Filtro Gaussiano   (Digite apenas 1, 2, 3 ou 4)" << endl;//Escolhendo o Filtro.
+		else if(gostaria1 == 2){//InÃ­cio dos Filtros (ExplicaÃ§Ãµes de como funcionam no RelatÃ³rio)
+		cout << "Gostaria de: 1.Filtro de Sobel   2.Filtro de RealÃ§ar   3.Filtro de Laplace   4.Filtro Gaussiano   (Digite apenas 1, 2, 3 ou 4)" << endl;//Escolhendo o Filtro.
 		cin >> gostaria2;
 		
 			if(gostaria2 == 1){ //Sobel.
-			cout << "Você escolheu o Filtro de Sobel." << endl;
+			cout << "VocÃª escolheu o Filtro de Sobel." << endl;
 			cout << endl;
 			valor = 0;
 			
@@ -238,7 +239,7 @@ int main(){
 			valor = 0;
 			int y1, y2, y3;
     	
-    		for(int i = 0; i < altura; i++){//Faz a média dos dois em um terceiro.
+    		for(int i = 0; i < altura; i++){//Faz a mÃ©dia dos dois em um terceiro.
     			for(int j = 0; j < largura; j++){
     				y1 = (int)auxiliar_cinza1[i][j];
     				y2 = (int)auxiliar_cinza2[i][j];
@@ -269,8 +270,8 @@ int main(){
     } 
     
 	
-		else if(gostaria2 == 2){ //Realçar
-			cout << "Você escolheu o Filtro de Realçar." << endl;
+		else if(gostaria2 == 2){ //RealÃ§ar
+			cout << "VocÃª escolheu o Filtro de RealÃ§ar." << endl;
 			cout << endl;
 			valor = 0;
 			
@@ -326,7 +327,7 @@ int main(){
 	
 	
 		else if(gostaria2 == 3){ //Laplace
-			cout << "Você escolheu o Filtro Laplace." << endl;
+			cout << "VocÃª escolheu o Filtro Laplace." << endl;
 			cout << endl;
 			valor = 0;
 			
@@ -381,7 +382,7 @@ int main(){
 	
 	
 	else if(gostaria2 == 4){ //Gaussiano
-			cout << "Você escolheu o Filtro Gaussiano." << endl;
+			cout << "VocÃª escolheu o Filtro Gaussiano." << endl;
 			cout << endl;
 			valor = 0;
 			
@@ -458,20 +459,20 @@ int main(){
 	} //FIM DAS CINZAS
 	
 	
-	if (strcmp(tipoimg,"P3")==0){ //INÍCIO DAS COLORIDAS
-		cout << "Gostaria de:   1.Operações   2.Filtros   (Digite apenas 1 ou 2)" << endl;//Escolher operação ou filtro. 
+	if (strcmp(tipoimg,"P3")==0){ //INÃCIO DAS COLORIDAS
+		cout << "Gostaria de:   1.OperaÃ§Ãµes   2.Filtros   (Digite apenas 1 ou 2)" << endl;//Escolher operaÃ§Ã£o ou filtro. 
     	cin >> gostaria1;
 		
 		z = largura - 1;
 	
-		if(gostaria1 == 1){//Operações (Explicados no relatório)
-		cout << "Gostaria de: 1.Clareamento   2.Escurecimento   3.Negativo   4.Espelhar   5.Preto e Branco   6.Patriota (Digite apenas 1, 2, 3, 4, 5 ou 6)" << endl;//Escolher a operação.
+		if(gostaria1 == 1){//OperaÃ§Ãµes (Explicados no relatÃ³rio)
+		cout << "Gostaria de: 1.Clareamento   2.Escurecimento   3.Negativo   4.Espelhar   5.Preto e Branco   6.Patriota (Digite apenas 1, 2, 3, 4, 5 ou 6)" << endl;//Escolher a operaÃ§Ã£o.
 		cin >> gostaria2;
 			
 		if(gostaria2 == 1){//Clareamento
-    		cout << "Você escolheu o clareamento." << endl;
+    		cout << "VocÃª escolheu o clareamento." << endl;
     		cout << endl;
-    		cout << "Qual o fator de clareamento? (Digite um número)" << endl;
+    		cout << "Qual o fator de clareamento? (Digite um nÃºmero)" << endl;
     		cin >> fatorclaro;
     		for(int i = 0; i < altura; i++){//Soma nos pixels,
     			for(int j = 0; j < largura; j++){
@@ -487,9 +488,9 @@ int main(){
 		}
 	
 		else if(gostaria2 == 2){//Escurecimento.
-			cout << "Você escolheu o escurecimento." << endl;
+			cout << "VocÃª escolheu o escurecimento." << endl;
 			cout << endl;
-			cout << "Qual o fator de escurecimento? (Digite um número)" << endl;
+			cout << "Qual o fator de escurecimento? (Digite um nÃºmero)" << endl;
 			cin >> fatorescuro;
     	for(int i = 0; i < altura; i++){//Subtrai nos pixels.
     		for(int j = 0; j < largura; j++){
@@ -505,9 +506,9 @@ int main(){
     }
     	
     	else if(gostaria2 == 3){//Negativo
-    		cout << "Você escolheu o negativo." << endl;
+    		cout << "VocÃª escolheu o negativo." << endl;
     		for(int i = 0; i < altura; i++){
-    			for(int j = 0; j < largura; j++){//Faz o módulo da subtração nos pixels.
+    			for(int j = 0; j < largura; j++){//Faz o mÃ³dulo da subtraÃ§Ã£o nos pixels.
     				for(int k = 0; k < cor; k++){
     					valor = (int)imagem_colorida[i][j][k];
     					valor = abs(valor - 255);
@@ -518,7 +519,7 @@ int main(){
 		}	
 		
 		else if(gostaria2 == 4){//Espelhar.
-    		cout << "Você escolheu espelhar." << endl;
+    		cout << "VocÃª escolheu espelhar." << endl;
     		for(int i = 0; i < largura; i++){//Inverte as colunas.
     			for(int j = 0; j < altura; j++){
 					for(int k = 0; k < cor; k++){	
@@ -536,8 +537,8 @@ int main(){
 		
 		else if(gostaria2 == 5){//Preto e Branco
 			string muda = "P2";//Muda o tipo de imagem para P2
-			cout << "Você escolheu deixar em preto e branco." << endl;
-			for(int i = 0; i < altura; i++){//Passa o vetor de três dimensões para um de dois.
+			cout << "VocÃª escolheu deixar em preto e branco." << endl;
+			for(int i = 0; i < altura; i++){//Passa o vetor de trÃªs dimensÃµes para um de dois.
     			for(int j = 0; j < largura; j++){
     				valor = ((int)imagem_colorida[i][j][0] + (int)imagem_colorida[i][j][1] + (int)imagem_colorida[i][j][2]) / 3;
     				if(valor < 0)
@@ -547,7 +548,7 @@ int main(){
     				imagem_cinza[i][j] = (unsigned char)valor;
 				}
 			}
-    	cout << "Digite o nome da imagem gerada (Utilize o .pnm)" << endl;//Saída da imagem.
+    	cout << "Digite o nome da imagem gerada (Utilize o .pnm)" << endl;//SaÃ­da da imagem.
 		cin >> arq_saida;
 		cout << endl;
 		
@@ -569,7 +570,7 @@ int main(){
 	} 	
 	
 		else if(gostaria2 == 6){//PATRIOTA **VIVA O BRASIL**
-			cout << "Você decidiu mostrar o seu amor à Pátria Amada!" << endl;//(VER RELATÓRIO PARA FUNCIONAMENTO)
+			cout << "VocÃª decidiu mostrar o seu amor Ã  PÃ¡tria Amada!" << endl;//(VER RELATÃ“RIO PARA FUNCIONAMENTO)
 			int fator = 3;
      		
      
@@ -654,11 +655,11 @@ int main(){
 }
 
 	else if(gostaria1 == 2){//Filtros
-		cout << "Gostaria de: 1.Filtro de Sobel   2.Filtro de Realçar   3.Filtro de Laplace   4.Filtro Gaussiano   (Digite apenas 1, 2, 3 ou 4)" << endl;//Escolhendo o filtro.
+		cout << "Gostaria de: 1.Filtro de Sobel   2.Filtro de RealÃ§ar   3.Filtro de Laplace   4.Filtro Gaussiano   (Digite apenas 1, 2, 3 ou 4)" << endl;//Escolhendo o filtro.
 		cin >> gostaria2;
 		
 		 if(gostaria2 == 1){ //Sobel.
-			cout << "Você escolheu o Filtro de Sobel." << endl;
+			cout << "VocÃª escolheu o Filtro de Sobel." << endl;
 			cout << endl;
 			valor = 0;
 			
@@ -722,7 +723,7 @@ int main(){
 			
 			int y1, y2, y3;
 			
-			for(int i = 0; i < altura; i++){//Faz a média em um terceiro.
+			for(int i = 0; i < altura; i++){//Faz a mÃ©dia em um terceiro.
 				for(int j = 0; j < largura; j++){
 					for(int k = 0; k < 3; k++){
 						y1 = (int)auxiliar_colorida1[i][j][k];
@@ -734,7 +735,7 @@ int main(){
 			}
 			
     	
-    	cout << "Digite o nome da imagem gerada (Utilize o .pnm)" << endl;//Saída da imagem.
+    	cout << "Digite o nome da imagem gerada (Utilize o .pnm)" << endl;//SaÃ­da da imagem.
 		cin >> arq_saida;
 		cout << endl;
 		
@@ -756,8 +757,8 @@ int main(){
 			return 0;
     } 
     
-    else if(gostaria2 == 2){//Realçar.
-    	cout << "Você escolheu o Filtro de Realçar." << endl;
+    else if(gostaria2 == 2){//RealÃ§ar.
+    	cout << "VocÃª escolheu o Filtro de RealÃ§ar." << endl;
     	
     		for(int i = 0, c1 = 0, c2 = 0, c3 = 0; i < altura; i++){//Aplica o filtro gr.
 				for(int j = 0; j < largura; j++){
@@ -788,7 +789,7 @@ int main(){
 				}
 			}
 			
-		cout << "Digite o nome da imagem gerada (Utilize o .pnm)" << endl;//Saída de imagem	
+		cout << "Digite o nome da imagem gerada (Utilize o .pnm)" << endl;//SaÃ­da de imagem	
 		cin >> arq_saida;
 		cout << endl;
 		
@@ -811,7 +812,7 @@ int main(){
 	}
     
     else if(gostaria2 == 3){//Laplace
-    	cout << "Você escolheu o Filtro de Laplace." << endl;
+    	cout << "VocÃª escolheu o Filtro de Laplace." << endl;
     	
     		for(int i = 0, c1 = 0, c2 = 0, c3 = 0; i < altura; i++){//Aplica o filtro glp
 				for(int j = 0; j < largura; j++){
@@ -842,7 +843,7 @@ int main(){
 				}
 			}
 			
-		cout << "Digite o nome da imagem gerada (Utilize o .pnm)" << endl;//Saída de imagem
+		cout << "Digite o nome da imagem gerada (Utilize o .pnm)" << endl;//SaÃ­da de imagem
 		cin >> arq_saida;
 		cout << endl;
 		
@@ -865,7 +866,7 @@ int main(){
 	}
     
     else if(gostaria2 == 4){//Gaussiano
-    	cout << "Você escolheu o Filtro Gaussiano." << endl;
+    	cout << "VocÃª escolheu o Filtro Gaussiano." << endl;
     	double c3 = 0;
     	
     		for(int i = 0, c1 = 0, c2 = 0; i < altura; i++){//Aplica o filtro gdg
@@ -898,7 +899,7 @@ int main(){
 				}
 			}
 			
-		cout << "Digite o nome da imagem gerada (Utilize o .pnm)" << endl;//Saída de imagem
+		cout << "Digite o nome da imagem gerada (Utilize o .pnm)" << endl;//SaÃ­da de imagem
 		cin >> arq_saida;
 		cout << endl;
 		
@@ -922,7 +923,7 @@ int main(){
     
     
 }
-		cout << "Digite o nome da imagem gerada (Utilize o .pnm)" << endl;//Saída de imagem
+		cout << "Digite o nome da imagem gerada (Utilize o .pnm)" << endl;//SaÃ­da de imagem
 		cin >> arq_saida;
 		cout << endl;
 		
@@ -943,5 +944,5 @@ int main(){
 	
 } //FIM DAS COLORIDAS
 	
-	return 0;//Fim do melhor software dessa geração.
+	return 0;//Fim do melhor software dessa geraÃ§Ã£o.
 }
